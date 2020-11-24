@@ -1,23 +1,24 @@
-6
-4
-1
-2
-3
-C
-B
-A
-R
-E
-M
-J
-Z
-D
-Q
-N
-S
-5
-7
-F
-G
-L
-W
+name,color,speed
+1,red,local
+2,red,express
+3,red,express
+4,dark green,express
+5,dark green,express
+6,dark green,both
+7,purple,both
+A,blue,express
+B,orange,express
+C,blue,local
+D,orange,express
+E,blue,local
+F,orange,local
+G,light green,local
+J,brown,express
+L,light gray,local
+M,orange,local
+N,yellow,express
+Q,yellow,express
+R,yellow,local
+S,dark gray,local
+W,yellow,local
+Z,brown,express
