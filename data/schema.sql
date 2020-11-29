@@ -30,13 +30,13 @@ create table Zip_Codes_Is_In (
     foreign key (bid) references Boroughs(bid)
 );
 
+-- had to modify because data that's by zip code is cumulative and lacks dates
+-- TODO modify ER diagram
 create table COVID_Casualties_Are_In (
-    from_date date,
-    to_date date,
     cases integer not null,
     deaths integer not null,
-    zip_code integer,
-    primary key (from_date, to_date),
+    zip_code integer primary key,
+    neighborhood, varchar(256)
     foreign key (zip_code) references Zip_Codes_Is_In (zip_code)
 );
 

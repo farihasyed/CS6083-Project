@@ -128,6 +128,31 @@ def train_stations_have_and_stops_at():
     file.close()
 
 
+def covid_casualties():
+    url = 'https://raw.githubusercontent.com/nychealth/coronavirus-data/master/totals/data-by-modzcta.csv'
+    response = requests.get(url)
+    lines = response.text.split('\n')
+    ZIP_CODE_INDEX = 0
+    NEIGHBORHOOD_INDEX = 1
+    CASES_INDEX = 3
+    DEATHS_INDEX = 6
+    covid_tuples = []
+
+    for line in lines:
+        data = line.split(',')
+        if len(data) == 10:
+            zip_code = data[ZIP_CODE_INDEX]
+            neighborhood = data[NEIGHBORHOOD_INDEX]
+            cases = data[CASES_INDEX]
+            deaths = data[DEATHS_INDEX]
+            covid_tuple = ','.join([zip_code, neighborhood, cases, deaths])
+            covid_tuples.append(covid_tuple)
+
+    with open(os.path.join(FILE_LOCATION, "covid_casualties.csv"), "w+") as file:
+        file.write('\n'.join(covid_tuples))
+
+
 zip_codes_to_boroughs()
 zip_codes_is_in()
 train_stations_have_and_stops_at()
+covid_casualties()
