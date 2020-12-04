@@ -55,16 +55,6 @@ if table_name:
     df = query_db(sql_table)
     st.dataframe(df)
 
-# NOTE
-#  queries
-#  train stations in each zip code and borough?
-#  train stations in each borough
-#  covid casualties in each borough
-#  accidents in each borough
-#  metrocard swipes in each borough
-#  demographics per borough
-#  lines at each station
-
 
 def zip_codes_and_neighborhoods():
     return f"""select ZC.zip_code, CCAI.neighborhood 
@@ -112,7 +102,7 @@ def covid_casualties():
             from COVID_Casualties_Are_In CCAI, Boroughs B, Zip_Codes_Is_In ZC 
             where B.bid = ZC.bid 
             and B.name = '{borough}'
-            and ZC.zip_code = CCAT.zip_code
+            and ZC.zip_code = CCAI.zip_code
             """
 
 
@@ -135,7 +125,7 @@ def metrocard_swipes():
             sum(MSUI.seven_day_unlimited) as seven_day_unlimited, 
             sum(MSUI.fourteen_day_unlimited) as fourteen_day_unlimited, 
             sum(MSUI.thirty_day_unlimited) as thirty_day_unlimited
-            from Metrocard_Swipes_Used_At MSUI, Boroughs B, Zip_Codes_Is_In ZC, Train_Stations_Have 
+            from Metrocard_Swipes_Used_At MSUI, Boroughs B, Zip_Codes_Is_In ZC, Train_Stations_Have TSH
             where B.bid = ZC.bid 
             and B.name = '{borough}'
             group by ZC.zip_code
@@ -148,7 +138,7 @@ def compare_covid_casualties():
             select B.name, sum(CCAI.cases) as cases, sum(CCAI.deaths) as deaths 
             from COVID_Casualties_Are_In CCAI, Boroughs B, Zip_Codes_Is_In ZC 
             where B.bid = ZC.bid 
-            and ZC.zip_code = CCAT.zip_code
+            and ZC.zip_code = CCAI.zip_code
             group by B.name
             """
 
@@ -159,7 +149,7 @@ def compare_metrocard_swipes():
             sum(MSUI.seven_day_unlimited) as seven_day_unlimited, 
             sum(MSUI.fourteen_day_unlimited) as fourteen_day_unlimited, 
             sum(MSUI.thirty_day_unlimited) as thirty_day_unlimited
-            from Metrocard_Swipes_Used_At MSUI, Boroughs B, Zip_Codes_Is_In ZC, Train_Stations_Have 
+            from Metrocard_Swipes_Used_At MSUI, Boroughs B, Zip_Codes_Is_In ZC, Train_Stations_Have TSH
             where B.bid = ZC.bid 
             and TSH.name = MSUI.station_name
             group by B.name
@@ -174,6 +164,7 @@ def compare_demographics():
         from Boroughs B, Zip_Codes_Is_In ZC
         where B.bid = ZC.bid
         """
+
 
 def query_topic(topic, compare = False):
     if query == 'Train Stations':
