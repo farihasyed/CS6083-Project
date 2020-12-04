@@ -17,7 +17,7 @@ JSON = '.json?'
 FILE_LOCATION = 'data'
 
 zip_borough = {}
-borough_bid = {'Brooklyn': 0, 'Bronx': 1, 'Manhattan': 2, 'Queens': 3, 'Staten Island': 4}
+borough_bid = {'Brooklyn': 1, 'Bronx': 2, 'Manhattan': 3, 'Queens': 4, 'Staten Island': 5}
 
 
 # 240 zip codes
@@ -53,7 +53,7 @@ def zip_codes_is_in():
                 females = data['count_female']
                 males = data['count_male']
                 gender_unknown = data['count_gender_unknown']
-                american_indians = data['count_american_indian']  # TODO - update American Indians in relational model
+                american_indians = data['count_american_indian']
                 asians = data['count_asian_non_hispanic']
                 blacks = data['count_black_non_hispanic']
                 hispanic_latinos = data['count_hispanic_latino']
