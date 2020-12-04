@@ -43,9 +43,9 @@ create table Zip_Codes_Is_In (
 -- how would this change in ER diagram?
 create table COVID_Casualties_Are_In (
     zip_code integer primary key,
+    neighborhood varchar(256),
     cases integer not null,
     deaths integer not null,
-    neighborhood varchar(256),
     foreign key (zip_code) references Zip_Codes_Is_In (zip_code)
 );
 
