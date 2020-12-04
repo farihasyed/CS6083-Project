@@ -4,3 +4,4 @@ data/zip_codes.sql
 data/queries.sql
 .idea
 data/.idea/
+data/create_database_local.sh
