@@ -15,12 +15,6 @@ create table Boroughs (
     name varchar(32) unique not null
 );
 
-insert into Boroughs (name) values ('Brooklyn');
-insert into Boroughs (name) values ('Bronx');
-insert into Boroughs (name) values ('Manhattan');
-insert into Boroughs (name) values ('Queens');
-insert into Boroughs (name) values ('Staten Island');
-
 create table Zip_Codes_Is_In (
     zip_code integer primary key,
     bid integer not null,
