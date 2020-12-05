@@ -5,3 +5,5 @@ data/queries.sql
 .idea
 data/.idea/
 data/create_database_local.sh
+local.sh
+data/test.sh

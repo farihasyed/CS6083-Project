@@ -1,10 +1,10 @@
 # CS6083 Final Project
 
-## [project.py](src/project.py)
+## [project.py](code/project.py)
 ~~I think where the streamlit code will go. Right now, just has a couple of functions from demo.py.~~
 Put in streamlit code but haven't tested it yet.
 
-## [data.py](src/data.py)
+## [data.py](data/data.py)
 Python code to scrape data for insertion into database. 
 
 Status of data scraped by table:
@@ -19,7 +19,7 @@ Status of data scraped by table:
 * ~~Train_Lines~~ [complete](data/train_lines.csv)
 * Metrocard_Swipes_Used_At - Cicy
 
-## [schema.sql](data/schema.sql)
+## [schema.sql](code/schema.sql)
 Database schema - had to update some things like COVID table. Need to remember to update ER diagram to reflect
 these changes.
 
@@ -31,7 +31,7 @@ separate from schema.sql just because schema.sql is so long~~
 Easier to read in CSV files into tables via CLI commands, so replaced this with [create_database.sh](create_database.sh)
 
 ## [create_database.sh](create_database.sh)
-Script to initialize database. Runs [schema.sql](data/schema.sql) and reads in CSV files
+Script to initialize database. Runs [schema.sql](code/schema.sql) and reads in CSV files
 
 
     
