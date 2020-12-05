@@ -1,4 +1,3 @@
--- TODO modify ER diagram based on changes
 drop table if exists Boroughs cascade;
 drop table if exists Zip_Codes_Boroughs cascade;
 drop table if exists Demographics cascade;
@@ -39,8 +38,6 @@ create table Zip_Codes_Is_In (
     foreign key (bid) references Boroughs(bid)
 );
 
--- had to modify because data that's by zip code is cumulative and lacks dates
--- how would this change in ER diagram?
 create table COVID_Casualties_Are_In (
     zip_code integer primary key,
     neighborhood varchar(256),
@@ -64,8 +61,6 @@ create table Train_Stations_Have (
     zip_code integer not null,
     foreign key (zip_code) references Zip_Codes_Is_In(zip_code)
 );
-
--- alter table Train_Stations_Have add foreign key (zip_code) references Zip_Codes_Is_In(zip_code);
 
 create table Turnstiles_Access (
     turnstile_id integer,
@@ -102,5 +97,5 @@ create table Metrocard_Swipes_Used_At (
     thirty_day_unlimited integer,
     station_name varchar(64),
     primary key (from_date, to_date, station_name),
-    foreign key (station_name) references Train_Stations_Have(name)
+    foreign key (station_name) references Train_Stations_Have(name) on delete cascade
 );
