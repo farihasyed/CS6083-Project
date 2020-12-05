@@ -20,7 +20,6 @@ zip_borough = {}
 borough_bid = {'Brooklyn': 1, 'Bronx': 2, 'Manhattan': 3, 'Queens': 4, 'Staten Island': 5}
 
 
-# 240 zip codes
 def zip_codes_to_boroughs():
     with open("data/zip_borough.csv", "r") as file:
         lines = file.readlines()
@@ -34,7 +33,6 @@ def zip_codes_to_boroughs():
 
 
 def zip_codes_is_in():
-    # https://data.cityofnewyork.us/City-Government/Demographic-Statistics-By-Zip-Code/kku6-nxdu
     query = 'jurisdiction_name='
     table = []
     schema = ','.join(['bid', 'females', 'males', 'gender_unknown', 'american_indians', 'asians', 'blacks',
@@ -82,7 +80,6 @@ def get_zip_code(latitude, longitude):
 
 
 def train_stations_have_and_stops_at():
-    # https://data.cityofnewyork.us/resource/kk4q-3rt2.json
     query = '$select=name, the_geom, line'
     url = ''.join([NY_DATA_ENDPOINT, TRAIN_STATIONS, JSON, query])
     response = requests.get(url, auth=HTTPBasicAuth(NY_DATA_API_KEY, NY_DATA_API_KEY_SECRET))
