@@ -85,7 +85,7 @@ def accidents():
 
 def covid_casualties():
     return f"""
-            select sum(CCAI.cases) as cases, sum(CCAI.deaths) as deaths 
+            select CCAI.zip_code, CCAI.cases, CCAI.deaths
             from COVID_Casualties_Are_In CCAI, Boroughs B, Zip_Codes_Is_In ZC 
             where B.bid = ZC.bid 
             and B.name = '{borough}'
@@ -95,11 +95,9 @@ def covid_casualties():
 
 def demographics():
     return f"""
-            select sum(ZC.females) as females, sum(ZC.males) as males, sum(ZC.gender_unknown) as gender_unknown,
-            sum(ZC.American_Indians) as American_Indians, sum(ZC.Asians) as Asians, sum(ZC.Blacks) as Blacks,
-            sum(ZC.Hispanics_Latinos) as Hispanics_Latinos, sum(ZC.Pacific_Islanders) as Pacific_Islanders, 
-            sum(ZC.Whites) as Whites, sum(ZC.other_ethnicity) as other_ethnicity, 
-            sum(ZC.ethnicity_unknown) as ethnicity_unknown
+            select ZC.zip_code, ZC.females, ZC.males, ZC.gender_unknown, ZC.American_Indians, ZC.Asians, 
+            ZC.Blacks, ZC.Hispanics_Latinos, ZC.Pacific_Islanders, ZC.Whites, ZC.other_ethnicity, 
+            ZC.ethnicity_unknown
             from Boroughs B, Zip_Codes_Is_In ZC
             where B.bid = ZC.bid
             and B.name = '{borough}'
