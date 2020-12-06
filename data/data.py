@@ -2,12 +2,16 @@ import requests
 from requests.auth import HTTPBasicAuth
 import time
 import os
+import pandas as pd
+from sodapy import Socrata
+import datetime as dt
 
 NY_DATA_ENDPOINT = 'https://data.cityofnewyork.us/resource/'
 NY_DATA_API_KEY = os.environ['NY_DATA_API_KEY']
 NY_DATA_API_KEY_SECRET = os.environ['NY_DATA_API_KEY_SECRET']
 DEMOGRAPHICS = 'kku6-nxdu'
 TRAIN_STATIONS = 'kk4q-3rt2'
+COLLISIONS = "h9gi-nx95"
 
 TOM_TOM_ENDPOINT = 'https://api.tomtom.com/search/2/reverseGeocode/'
 TOM_TOM_API_KEY = os.environ['TOM_TOM_API_KEY']
@@ -148,8 +152,18 @@ def covid_casualties():
     with open(os.path.join(FILE_LOCATION, "covid_casualties.csv"), "w+") as file:
         file.write('\n'.join(covid_tuples))
 
+def vehicle_collision():
+  client = Socrata("data.cityofnewyork.us", NY_DATA_API_KEY_SECRET)
+  response = client.get(COLLISIONS, limit=10000000)
+  data_df = pd.DataFrame.from_records(response)
+  data_2020 = data_df[['crash_date', 'crash_time', 'zip_code', 'on_street_name', 'contributing_factor_vehicle_1']].dropna(subset=['zip_code'])
+  data_2020 = data_2020[data_2020['crash_date'] >= '2020-01-01'].sort_values('crash_date')
+  data_2020[['on_street_name', 'contributing_factor_vehicle_1']] = data_2020[['on_street_name', 'contributing_factor_vehicle_1']].fillna('MISSING')
+  data_2020.reset_index()
+  data_2020.to_csv('vehicle_collisions.csv', index=False)
 
 zip_codes_to_boroughs()
 zip_codes_is_in()
 train_stations_have_and_stops_at()
 covid_casualties()
+vehicle_collision()
