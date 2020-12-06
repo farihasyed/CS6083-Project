@@ -170,8 +170,8 @@ def turnstiles_access():
   data_df['date'] = pd.to_datetime(data_df['Date'])
   data_df = data_df[data_df['date'] >= '2020-1-1']
   turnstile_access = data_df.sort_values('date', ascending=False).drop_duplicates(['C/A'])
-  turnstile_access = turnstile_access[['C/A', 'Station', 'Date', 'Time', 'Entries', 'Exits                                                     ']]
-  turnstile_access.columns = ['turnstile_id', 'station_name', 'date', 'time', 'entries', 'exits']
+  turnstile_access = turnstile_access[['C/A', 'Unit', 'Station', 'Date', 'Time', 'Entries', 'Exits                                                     ']]
+  turnstile_access.columns = ['turnstile_id', 'station_id', 'station_name', 'date', 'time', 'entries', 'exits']
   turnstile_access.to_csv('turnstiles_access.csv', index=False)
 
 zip_codes_to_boroughs()
