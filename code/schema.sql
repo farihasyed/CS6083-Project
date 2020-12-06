@@ -57,14 +57,11 @@ create table Train_Stations_Have (
 );
 
 create table Turnstiles_Access (
-    turnstile_id varchar(16),
     station_id varchar(16),
     station_name varchar(64),
-    date date,
-    time time,
     entries integer,
     exits integer,
-    primary key (station_id, turnstile_id, date, time)
+    primary key (station_id, date, time)
 );
 
 create table Train_Lines (
