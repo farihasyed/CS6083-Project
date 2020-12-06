@@ -57,15 +57,14 @@ create table Train_Stations_Have (
 );
 
 create table Turnstiles_Access (
-    turnstile_id varchar(16)
+    turnstile_id varchar(16),
     station_id varchar(16),
     station_name varchar(64),
     date date,
-    time timestamp,
+    time time,
     entries integer,
     exits integer,
-    primary key (station_name, turnstile_id, date, time),
-    foreign key (station_name) references Train_Stations_Have(name) on delete cascade
+    primary key (station_id, turnstile_id, date, time)
 );
 
 create table Train_Lines (
@@ -93,5 +92,5 @@ create table Metrocard_Swipes_Used_At (
     fourteen_day_unlimited integer,
     thirty_day_unlimited integer,
     primary key (from_date, to_date, station_name),
-    foreign key (station_name) references Train_Stations_Have(name) on delete cascade
+    foreign key (station_id) references Turnstiles_Access(station_id) on delete cascade
 );
