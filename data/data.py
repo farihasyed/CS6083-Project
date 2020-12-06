@@ -12,6 +12,7 @@ NY_DATA_API_KEY_SECRET = os.environ['NY_DATA_API_KEY_SECRET']
 DEMOGRAPHICS = 'kku6-nxdu'
 TRAIN_STATIONS = 'kk4q-3rt2'
 COLLISIONS = "h9gi-nx95"
+TURNSTILE_ACCESS = "py8k-a8wg"
 
 TOM_TOM_ENDPOINT = 'https://api.tomtom.com/search/2/reverseGeocode/'
 TOM_TOM_API_KEY = os.environ['TOM_TOM_API_KEY']
@@ -154,15 +155,28 @@ def covid_casualties():
 
 def accidents_occurred_In():
   client = Socrata("data.cityofnewyork.us", NY_DATA_API_KEY_SECRET)
-  response = client.get(COLLISIONS, where="crash_date > '2020-01-01'", limit=10000000)
+  response = client.get(COLLISIONS, where="crash_date >= '2020-01-01'",limit=10000000)
   data_df = pd.DataFrame.from_records(response)
-  data_2020 = data_df[['crash_date', 'crash_time', 'zip_code', 'on_street_name', 'contributing_factor_vehicle_1']].dropna(subset=['zip_code'])
+  data_2020 = data_df[['collision_id', 'crash_date', 'crash_time', 'zip_code', 'on_street_name', 'contributing_factor_vehicle_1']].dropna(subset=['zip_code'])
   data_2020[['on_street_name', 'contributing_factor_vehicle_1']] = data_2020[['on_street_name', 'contributing_factor_vehicle_1']].fillna('MISSING')
   data_2020.reset_index()
-  data_2020.to_csv('accidents_occurred_in.csv', index=False)
+  data_2020.columns = ['collision_id', 'date', 'time', 'zip_code', 'street_name', 'contributinng_factor']
+  data_2020.to_csv('accidents_occured_in.csv', index=False)
+
+def turnstiles_access(): 
+  client = Socrata("data.ny.gov", NY_DATA_API_KEY_SECRET)
+  response = client.get(TURNSTILE_ACCESS, limit=10000000)
+  data_df = pd.DataFrame.from_records(response)
+  data_df['date'] = pd.to_datetime(data_df['Date'])
+  data_df = data_df[data_df['date'] >= '2020-1-1']
+  turnstile_access = data_df.sort_values('date', ascending=False).drop_duplicates(['C/A'])
+  turnstile_access = turnstile_access[['C/A', 'Station', 'Date', 'Time', 'Entries', 'Exits                                                     ']]
+  turnstile_access.columns = ['turnstile_id', 'station_name', 'date', 'time', 'entries', 'exits']
+  turnstile_access.to_csv('turnstiles_access.csv', index=False)
 
 zip_codes_to_boroughs()
 zip_codes_is_in()
 train_stations_have_and_stops_at()
 covid_casualties()
 accidents_occurred_In()
+turnstiles_access()
