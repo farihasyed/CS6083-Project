@@ -46,7 +46,7 @@ create table Accidents_Occurred_In (
     time time,
     zip_code integer not null,
     street_name varchar(32),
-    contributing_factor varchar(32),
+    contributing_factor varchar(256),
     foreign key (zip_code) references Zip_Codes_Is_In(zip_code)
 );
 
