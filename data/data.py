@@ -185,7 +185,7 @@ def metrocard_swipes_used_at():
   metrocard = metrocard.fillna(0)
   metrocard[['full_fare', 'one_day_unlimited', 'seven_day_unlimited', 'fourteen_day_unlimited', 'thirty_day_unlimited']] = metrocard[['full_fare', 'one_day_unlimited', 'seven_day_unlimited', 'fourteen_day_unlimited', 'thirty_day_unlimited']].apply(pd.to_numeric) 
   metrocard = metrocard.groupby(['station_id', 'station_name']).sum()
-  metrocard.to_csv('metrocard_swipes_used_at.csv', index=False)
+  metrocard.to_csv('stations_entrances_exits_are_part_of.csv', index=False)
   
 zip_codes_to_boroughs()
 zip_codes_is_in()

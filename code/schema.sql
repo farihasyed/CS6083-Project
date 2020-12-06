@@ -70,20 +70,15 @@ create table Stops_At (
     foreign key (line_name) references Train_Lines(name)
 );
 
-create table Turnstiles_Access (
+create table Stations_Entrances_Exits_Are_Part_Of (
     station_id varchar(16) primary key,
-    station_name varchar(64),
-    entries bigint,
-    exits bigint
-);
-
-create table Metrocard_Swipes_Used_At (
-    station_id varchar(16) primary key,
-    station_name varchar(64),
+    station_name varchar(64) not null,
     full_fare integer,
     one_day_unlimited integer,
     seven_day_unlimited integer,
     fourteen_day_unlimited integer,
     thirty_day_unlimited integer,
-    foreign key (station_id) references Turnstiles_Access(station_id) on delete cascade
+    exits bigint,
+    foreign key (station_id) references Turnstiles_Access(station_id),
+    foreign key (station_name) references Train_Stations_Have(station_id)
 );
