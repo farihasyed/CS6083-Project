@@ -42,9 +42,9 @@ create table COVID_Casualties_Are_In (
 
 create table Accidents_Occurred_In (
     collision_id integer primary key,
-    zip_code integer not null,
     date date,
     time time,
+    zip_code integer not null,
     street_name varchar(32),
     contributing_factor varchar(32),
     foreign key (zip_code) references Zip_Codes_Is_In(zip_code)
