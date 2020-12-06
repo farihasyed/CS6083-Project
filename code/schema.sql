@@ -79,8 +79,6 @@ create table Stops_At (
 );
 
 create table Metrocard_Swipes_Used_At (
-    from_date date,
-    to_date date,
     station_id varchar(16),
     station_name varchar(64),
     full_fare integer,
@@ -88,6 +86,6 @@ create table Metrocard_Swipes_Used_At (
     seven_day_unlimited integer,
     fourteen_day_unlimited integer,
     thirty_day_unlimited integer,
-    primary key (from_date, to_date, station_name),
+    primary key (station_id),
     foreign key (station_id) references Turnstiles_Access(station_id) on delete cascade
 );
