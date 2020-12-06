@@ -56,14 +56,6 @@ create table Train_Stations_Have (
     foreign key (zip_code) references Zip_Codes_Is_In(zip_code)
 );
 
-create table Turnstiles_Access (
-    station_id varchar(16),
-    station_name varchar(64),
-    entries integer,
-    exits integer,
-    primary key (station_id, date, time)
-);
-
 create table Train_Lines (
     name varchar(4) primary key,
     color varchar(16),
@@ -78,14 +70,20 @@ create table Stops_At (
     foreign key (line_name) references Train_Lines(name)
 );
 
+create table Turnstiles_Access (
+    station_id varchar(16) primary key,
+    station_name varchar(64),
+    entries bigint,
+    exits bigint
+);
+
 create table Metrocard_Swipes_Used_At (
-    station_id varchar(16),
+    station_id varchar(16) primary key,
     station_name varchar(64),
     full_fare integer,
     one_day_unlimited integer,
     seven_day_unlimited integer,
     fourteen_day_unlimited integer,
     thirty_day_unlimited integer,
-    primary key (station_id),
     foreign key (station_id) references Turnstiles_Access(station_id) on delete cascade
 );

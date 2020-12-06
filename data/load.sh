@@ -5,6 +5,5 @@ cat data/train_lines.csv | psql -U fs1688 -d fs1688_project -h localhost -p 5432
 cat data/train_stations_have.csv | psql -U fs1688 -d fs1688_project -h localhost -p 5432 -c "copy Train_Stations_Have from stdin csv header"
 cat data/stops_at.csv | psql -U fs1688 -d fs1688_project -h localhost -p 5432 -c "copy Stops_At from stdin csv header"
 cat data/accidents_occurred_in.csv | psql -U fs1688 -d fs1688_project -h localhost -p 5432 -c "copy accidents_occurred_in from stdin csv header"
-cat data/metrocard_swipes_used_at.csv | psql -U fs1688 -d fs1688_project -h localhost -p 5432 -c "copy metrocard_swipes_used_at from stdin csv header"
 cat data/turnstiles_access.csv | psql -U fs1688 -d fs1688_project -h localhost -p 5432 -c "copy turnstiles_access from stdin csv header"
-
+cat data/metrocard_swipes_used_at.csv | psql -U fs1688 -d fs1688_project -h localhost -p 5432 -c "copy metrocard_swipes_used_at from stdin csv header"
