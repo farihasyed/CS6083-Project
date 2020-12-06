@@ -13,6 +13,7 @@ DEMOGRAPHICS = 'kku6-nxdu'
 TRAIN_STATIONS = 'kk4q-3rt2'
 COLLISIONS = "h9gi-nx95"
 TURNSTILE_ACCESS = "py8k-a8wg"
+METROCARD = "v7qc-gwpn"
 
 TOM_TOM_ENDPOINT = 'https://api.tomtom.com/search/2/reverseGeocode/'
 TOM_TOM_API_KEY = os.environ['TOM_TOM_API_KEY']
@@ -169,11 +170,19 @@ def turnstiles_access():
   data_df = pd.DataFrame.from_records(response)
   data_df['date'] = pd.to_datetime(data_df['Date'])
   data_df = data_df[data_df['date'] >= '2020-1-1']
-  turnstile_access = data_df.sort_values('date', ascending=False).drop_duplicates(['C/A'])
-  turnstile_access = turnstile_access[['C/A', 'Unit', 'Station', 'Date', 'Time', 'Entries', 'Exits                                                     ']]
-  turnstile_access.columns = ['turnstile_id', 'station_id', 'station_name', 'date', 'time', 'entries', 'exits']
-  turnstile_access.to_csv('turnstiles_access.csv', index=False)
+  turnstiles_access = data_df.sort_values('date', ascending=False).drop_duplicates(['C/A'])
+  turnstiles_access = turnstiles_access[['C/A', 'Unit', 'Station', 'Date', 'Time', 'Entries', 'Exits                                                     ']]
+  turnstiles_access.columns = ['turnstile_id', 'station_id', 'station_name', 'date', 'time', 'entries', 'exits']
+  turnstiles_access.to_csv('turnstiles_access.csv', index=False)
 
+def metrocard_swipes_used_at():
+  client = Socrata("data.ny.gov", NY_DATA_API_KEY_SECRET)
+  response = client.get(METROCARD, where="from_date >= '2020-01-01'", limit=10000000)
+  data_df = pd.DataFrame.from_records(response)
+  metrocard = data_df[['from_date', 'to_date', 'remote_station_id', 'station', 'full_fare', '_1_day_unlimited', '_7_day_unlimited', '_14_day_unlimited', '_30_day_unlimited']]
+  metrocard.columns = ['from_date', 'to_date', 'station_id', 'station_name', 'full_fare', 'one_day_unlimited', 'seven_day_unlimited', 'fourteen_day_unlimited', 'thirty_day_unlimited']
+  metrocard.to_csv('metrocard_swipes_used_at.csv', index=False)
+  
 zip_codes_to_boroughs()
 zip_codes_is_in()
 train_stations_have_and_stops_at()
