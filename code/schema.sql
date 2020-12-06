@@ -57,7 +57,7 @@ create table Train_Stations_Have (
 );
 
 create table Turnstiles_Access (
-    turnstile_id integer,
+    turnstile_id varchar(16)
     station_id varchar(16),
     station_name varchar(64),
     date date,
@@ -85,13 +85,13 @@ create table Stops_At (
 create table Metrocard_Swipes_Used_At (
     from_date date,
     to_date date,
+    station_id varchar(16),
+    station_name varchar(64),
     full_fare integer,
     one_day_unlimited integer,
     seven_day_unlimited integer,
     fourteen_day_unlimited integer,
     thirty_day_unlimited integer,
-    station_id varchar(16),
-    station_name varchar(64),
     primary key (from_date, to_date, station_name),
     foreign key (station_name) references Train_Stations_Have(name) on delete cascade
 );
