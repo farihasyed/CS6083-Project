@@ -5,10 +5,9 @@ drop table if exists Zip_Codes_Is_In cascade;
 drop table if exists COVID_Casualties_Are_In cascade;
 drop table if exists Accidents_Occurred_In cascade;
 drop table if exists Train_Stations_Have cascade;
-drop table if exists Turnstiles_Access cascade;
 drop table if exists Stops_At cascade;
 drop table if exists Train_Lines cascade;
-drop table if exists Metrocard_Swipes_Used_At cascade;
+drop table if exists Stations_Entrances_Exits_Are_Part_Of cascade;
 
 create table Boroughs (
     bid serial primary key,
@@ -73,12 +72,12 @@ create table Stops_At (
 create table Stations_Entrances_Exits_Are_Part_Of (
     station_id varchar(16) primary key,
     station_name varchar(64) not null,
+    entries bigint,
+    exits bigint,
     full_fare integer,
     one_day_unlimited integer,
     seven_day_unlimited integer,
     fourteen_day_unlimited integer,
     thirty_day_unlimited integer,
-    exits bigint,
-    foreign key (station_id) references Turnstiles_Access(station_id),
-    foreign key (station_name) references Train_Stations_Have(station_id)
+    foreign key (station_name) references Train_Stations_Have(name)
 );
