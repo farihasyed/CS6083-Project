@@ -7,3 +7,5 @@ data/.idea/
 data/create_database_local.sh
 local.sh
 data/test.sh
+contributions.docx
+local_run.sh
