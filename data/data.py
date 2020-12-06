@@ -181,6 +181,9 @@ def metrocard_swipes_used_at():
   data_df = pd.DataFrame.from_records(response)
   metrocard = data_df[['from_date', 'to_date', 'remote_station_id', 'station', 'full_fare', '_1_day_unlimited', '_7_day_unlimited', '_14_day_unlimited', '_30_day_unlimited']]
   metrocard.columns = ['from_date', 'to_date', 'station_id', 'station_name', 'full_fare', 'one_day_unlimited', 'seven_day_unlimited', 'fourteen_day_unlimited', 'thirty_day_unlimited']
+  metrocard = metrocard.fillna(0)
+  metrocard[['full_fare', 'one_day_unlimited', 'seven_day_unlimited', 'fourteen_day_unlimited', 'thirty_day_unlimited']] = metrocard[['full_fare', 'one_day_unlimited', 'seven_day_unlimited', 'fourteen_day_unlimited', 'thirty_day_unlimited']].apply(pd.to_numeric) 
+  metrocard = metrocard.groupby(['station_id', 'station_name']).sum()
   metrocard.to_csv('metrocard_swipes_used_at.csv', index=False)
   
 zip_codes_to_boroughs()
