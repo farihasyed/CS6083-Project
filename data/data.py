@@ -4,7 +4,6 @@ import time
 import os
 import pandas as pd
 from sodapy import Socrata
-import datetime as dt
 
 NY_DATA_ENDPOINT = 'https://data.cityofnewyork.us/resource/'
 NY_DATA_API_KEY = os.environ['NY_DATA_API_KEY']
@@ -170,7 +169,9 @@ def turnstiles_access():
   data_df = pd.DataFrame.from_records(response)
   data_df['date'] = pd.to_datetime(data_df['Date'])
   data_df = data_df[data_df['date'] >= '2020-1-1']
-  turnstile_access = data_df[['C/A', 'Unit', 'Station', 'Date', 'Time', 'Entries', 'Exits                                                     ']]   turnstile_access.columns = ['turnstile_id', 'station_id', 'station_name', 'date', 'time', 'entries', 'exits']    turnstile_access = data_df.sort_values('Entries', ascending=False).drop_duplicates(['C/A','Station'])
+  turnstile_access = data_df[['C/A', 'Unit', 'Station', 'Date', 'Time', 'Entries', 'Exits']]
+  turnstile_access.columns = ['turnstile_id', 'station_id', 'station_name', 'date', 'time', 'entries', 'exits']
+  turnstile_access = data_df.sort_values('Entries', ascending=False).drop_duplicates(['C/A','Station'])
   turnstile_access = turnstile_access.groupby(['station_id', 'turnstile_id']).max()
   turnstile_access = turnstile_access.groupby(['station_id', 'station_name']).sum().reset_index()
   turnstile_access.to_csv('turnstiles_access.csv', index=False)

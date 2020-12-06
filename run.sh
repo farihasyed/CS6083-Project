@@ -1,1 +1,1 @@
-streamlit run src/project.py --server.address=localhost --server.port=8539
+streamlit run code/project.py --server.address=localhost --server.port=8539
