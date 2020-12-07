@@ -70,7 +70,7 @@ create table Stops_At (
 );
 
 create table Stations_Entrances_Exits_Are_Part_Of (
-    station_id varchar(16) primary key,
+    entrance_id varchar(16) primary key,
     station_name varchar(64) not null,
     entries bigint,
     exits bigint,

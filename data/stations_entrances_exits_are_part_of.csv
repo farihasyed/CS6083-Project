@@ -1,4 +1,4 @@
-station_id,station_name,entries,exits,full_fare,one_day_unlimited,seven_day_unlimited,fourteen_day_unlimited,thirty_day_unlimited
+entrance_id,station_name,entries,exits,full_fare,one_day_unlimited,seven_day_unlimited,fourteen_day_unlimited,thirty_day_unlimited
 R011,Times Sq - 42nd St,3612913950,3530244637,3841840,429,701621,21,911650
 R020,47th-50th Sts - Rockefeller Ctr,3161471509,2202562933,2254637,568,733046,3,1123847
 R021,Times Sq - 42nd St,2083376104,1410855071,1468384,413,555771,3,874125
