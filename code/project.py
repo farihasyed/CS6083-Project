@@ -106,7 +106,7 @@ def demographics(borough):
 
 def compare_accidents(boroughs):
     start = f"""
-            select B.name, count(AOI.collision_id) 
+            select B.name, count(AOI.collision_id) as total
             from Accidents_Occurred_In AOI, Boroughs B, Zip_Codes_Is_In ZC 
             where B.bid = ZC.bid 
             and ZC.zip_code = AOI.zip_code
@@ -123,7 +123,6 @@ def compare_accidents(boroughs):
             borough_conditions.append(' or ')
         borough_conditions.append(''.join([borough_condition, '\'', borough, '\'']))
     query = ''.join([start, ''.join(borough_conditions), ')', end])
-    print(query)
     return query
 
 
@@ -151,7 +150,7 @@ def compare_covid_casualties(boroughs):
 
 def compare_train_stations_entrances_exits(boroughs):
     start = f"""
-            select B.name, sum(MSUI.entries), sum(MSUI.exits), sum(MSUI.full_fare) as full_fare, 
+            select B.name, sum(MSUI.entries) as entries, sum(MSUI.exits) as exits, sum(MSUI.full_fare) as full_fare, 
             sum(MSUI.one_day_unlimited) as one_day_unlimited, 
             sum(MSUI.seven_day_unlimited) as seven_day_unlimited, 
             sum(MSUI.fourteen_day_unlimited) as fourteen_day_unlimited, 
@@ -172,7 +171,6 @@ def compare_train_stations_entrances_exits(boroughs):
             borough_conditions.append(' or ')
         borough_conditions.append(''.join([borough_condition, '\'', borough, '\'']))
     query = ''.join([start, ''.join(borough_conditions), ')', end])
-    print(query)
     return query
 
 
@@ -197,7 +195,6 @@ def compare_demographics(boroughs):
             borough_conditions.append(' or ')
         borough_conditions.append(''.join([borough_condition, '\'', borough, '\'']))
     query = ''.join([start, ''.join(borough_conditions), ')', end])
-    print(query)
     return query
 
 
